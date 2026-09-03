@@ -3,4 +3,8 @@ data/*.csv
 
 # Archivos compilados de Python
 __pycache__/
-*.pyc
+*.pyc´
+
+models/
+notebooks/models/
+*.joblib
