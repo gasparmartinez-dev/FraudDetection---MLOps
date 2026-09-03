@@ -8,3 +8,10 @@ __pycache__/
 models/
 notebooks/models/
 *.joblib
+
+.ipynb_checkpoints/
+
+# Entornos virtuales
+.venv/
+venv/
+ENV/
