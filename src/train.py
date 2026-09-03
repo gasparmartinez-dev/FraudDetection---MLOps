@@ -17,3 +17,12 @@ num_pos = (y_train == 1).sum()
 factor_balanceo = num_neg / num_pos
 
 print(f"El factor de balanceo es: {factor_balanceo}")
+
+model = XGBClassifier(
+    scale_pos_weight=factor_balanceo,
+    random_state=42,
+    eval_metric="logloss"
+)
+print("Ajustando el modelo con los datos de entrenamiento...")
+model.fit(X_train, y_train)
+print("Modelo entrenado.")
