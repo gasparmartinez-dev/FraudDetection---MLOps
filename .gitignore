@@ -1,2 +1,6 @@
 data/creditcard.csv
 data/*.csv
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
