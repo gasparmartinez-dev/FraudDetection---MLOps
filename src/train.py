@@ -26,3 +26,10 @@ model = XGBClassifier(
 print("Ajustando el modelo con los datos de entrenamiento...")
 model.fit(X_train, y_train)
 print("Modelo entrenado.")
+
+# Guardar el modelo entrenado
+
+os.makedirs("models", exist_ok=True)
+joblib.dump(model, "models/xgboost_model.joblib")
+
+print("Modelo guardado.")
