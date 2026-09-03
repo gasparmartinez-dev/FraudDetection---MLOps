@@ -22,8 +22,8 @@ def separar_escalar_datos(df, ruta_scaler = "models/scaler.joblib", test_size = 
     #Crear el scaler
     scaler = RobustScaler()
 
-    X_train[["Amout", "Time"]] = scaler.fit_transform(X_train[["Amount", "Time"]])
-    X_test[["Amout", "Time"]] = scaler.fit_transform(X_test[["Amount", "Time"]])
+    X_train[["Amount", "Time"]] = scaler.fit_transform(X_train[["Amount", "Time"]])
+    X_test[["Amount", "Time"]] = scaler.transform(X_test[["Amount", "Time"]])
 
     os.makedirs(os.path.dirname(ruta_scaler), exist_ok=True)
     joblib.dump(scaler, ruta_scaler)
