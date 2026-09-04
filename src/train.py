@@ -34,7 +34,7 @@ joblib.dump(model, "models/xgboost_model.joblib")
 
 print("Modelo guardado.")
 
-from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
+from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, f1_score
 
 y_pred = model.predict(X_test)
 y_prob = model.predict_proba(X_test)[:,1]
@@ -44,5 +44,17 @@ print("\nEVALUACIÓN DEL MODELO")
 print("Matriz de confusión:")
 print(confusion_matrix(y_test, y_pred))
 
+v_nen, f_pos, f_nen, v_pos = confusion_matrix(y_test, y_pred).ravel()
+
+precision = v_pos / (v_pos + f_pos)
+recall = v_pos / (v_pos + f_nen)
+f1 = f1_score(y_test, y_pred)
+
+print(f"PRECISIÓN: {precision}")    # De cada 100 alertas, cuántas son reales
+print(f"RECALL: {recall}")          # De cada 100 fraudes, cuántos atrapa
+print(f"F1-SCORE: {f1}")            # Equilibro entre precisión y recall
+
 # La matriz de confusion indica que hay 56852 verdaderos negativos, 
 # 81 verdaderos positivos, 12 falsos positivos y 17 falsos negativos
+
+print(f"ROC-AUC Score: {roc_auc_score(y_test, y_prob)}")
