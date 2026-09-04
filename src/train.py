@@ -33,3 +33,13 @@ os.makedirs("models", exist_ok=True)
 joblib.dump(model, "models/xgboost_model.joblib")
 
 print("Modelo guardado.")
+
+from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
+
+y_pred = model.predict(X_test)
+y_prob = model.predict_proba(X_test)[:,1]
+
+# Imprimir métricas de evaluación
+print("\nEVALUACIÓN DEL MODELO")
+print("Matriz de confusión:")
+print(confusion_matrix(y_test, y_pred))
