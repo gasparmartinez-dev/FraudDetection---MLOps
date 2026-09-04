@@ -43,3 +43,6 @@ y_prob = model.predict_proba(X_test)[:,1]
 print("\nEVALUACIÓN DEL MODELO")
 print("Matriz de confusión:")
 print(confusion_matrix(y_test, y_pred))
+
+# La matriz de confusion indica que hay 56852 verdaderos negativos, 
+# 81 verdaderos positivos, 12 falsos positivos y 17 falsos negativos
