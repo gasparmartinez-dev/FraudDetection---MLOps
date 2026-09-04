@@ -34,7 +34,7 @@ joblib.dump(model, "models/xgboost_model.joblib")
 
 print("Modelo guardado.")
 
-from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, f1_score
+from sklearn.metrics import confusion_matrix, roc_auc_score, f1_score
 
 y_pred = model.predict(X_test)
 y_prob = model.predict_proba(X_test)[:,1]
