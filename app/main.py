@@ -42,3 +42,35 @@ def health_check():
         "status": "ok",
         "message": "Servicio de Detección de Fraudes activo y listo."
     }
+
+import pandas as pd
+
+@app.post("/predict", tags=["Prediccion"])
+def predict_fraud(transaction: TransactionInput):
+    if "model" not in mis_modelos or "scaler" not in mis_modelos:
+        raise HTTPException(
+            status_code = 503,
+            detail = "Servicio no disponible: modelos no cargados."
+        )
+
+    #Convertir la entrada Pydantic a DataFrame de Pandas
+    data_dict = transaction.model_dump()
+    df_input = pd.DataFrame([data_dict])
+
+    #Escalar Time y Amount
+    scaler = mis_modelos["scaler"]
+    df_input[["Time", "Scaler"]] = scaler.transform(df_input[["Time", "Amount"]])
+
+    #Generar predicción
+    model = mis_modelos["model"]
+    prediccion = int(model.predict(df_input)[0])
+    probabilidad = float(model.predict_proba(df_input)[0][1])
+
+    decision = "BLOQUEADO" if prediccion == 1 else "APROVADO"
+
+    #Devolver la respuesta en formato JSON
+    return{
+        "es_fraude": bool(prediccion == 1),
+        "probabilidad_fraude": round(probabilidad, 4),
+        "decision": decision
+    }
