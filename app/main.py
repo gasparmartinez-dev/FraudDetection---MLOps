@@ -32,7 +32,7 @@ app = FastAPI(
 
 # ENDPOINT DE ESTADO
 @app.get("/health", tags=["Estado"])
-def health_checl():
+def health_check():
     if "model" not in mis_modelos or "scaler" not in mis_modelos:
         raise HTTPException(
             status_code = 503,
