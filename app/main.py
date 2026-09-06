@@ -29,3 +29,16 @@ app = FastAPI(
     version = "1.0.0",
     lifespan = lifespan
 )
+
+# ENDPOINT DE ESTADO
+@app.get("/health", tags=["Estado"])
+def health_checl():
+    if "model" not in mis_modelos or "scaler" not in mis_modelos:
+        raise HTTPException(
+            status_code = 503,
+            detail = "Servicio no disponible: los modelos no están cargados en memoria."
+        )
+    return {
+        "status": "ok",
+        "message": "Servicio de Detección de Fraudes activo y listo."
+    }
